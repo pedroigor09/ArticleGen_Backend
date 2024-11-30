@@ -6,8 +6,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class ArticleGenBackendApplication {
@@ -30,5 +33,15 @@ public class ArticleGenBackendApplication {
 
 		// Agora, salve o PDF usando o método SavePdf
 		SavePdf.savePdf(outputStream, "Atividades_Alan_Turing_Computacao.pdf");
+	}
+
+	@Value("${PORT:8080}")
+	private String port;
+
+	@Bean
+	public TomcatServletWebServerFactory servletContainer() {
+		TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
+		factory.setPort(Integer.parseInt(port));
+		return factory;
 	}
 }
