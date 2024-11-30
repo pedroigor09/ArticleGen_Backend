@@ -45,6 +45,11 @@ public class GoogleSearchController {
         }
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "Bem-vindo à sua aplicação de geração de PDFs!";
+    }
+
     @GetMapping("/search")
     public List<String> search(@RequestParam("subject") String subject, @RequestParam("theme") String theme) {
         if (subject == null || subject.isBlank() || theme == null || theme.isBlank()) {
