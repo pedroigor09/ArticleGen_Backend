@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class TranslationService {
 
-    private static final int MAX_TEXT_LENGTH = 204800; // Limite de bytes por requisição
+    private static final int MAX_TEXT_LENGTH = 204800;
 
     private final Translate translate;
 

@@ -17,15 +17,6 @@ import java.util.List;
 @Service
 public class PdfGenerator {
 
-    /**
-     * Gera um PDF com o conteúdo extraído das URLs fornecidas.
-     *
-     * @param assunto       Assunto do documento.
-     * @param tema          Tema do documento.
-     * @param urls          Lista de URLs para extração de conteúdo.
-     * @param outputStream  OutputStream para salvar o PDF gerado.
-     */
-
     private static final Logger logger = LoggerFactory.getLogger(PdfGenerator.class);
 
     public static void generatePdf(String assunto, String tema, List<String> urls, ByteArrayOutputStream outputStream) {
@@ -68,12 +59,6 @@ public class PdfGenerator {
         }
     }
 
-    /**
-     * Valida se a URL fornecida é válida.
-     *
-     * @param url URL a ser validada.
-     * @return true se for válida, false caso contrário.
-     */
     private static boolean isValidUrl(String url) {
         try {
             URL parsedUrl = new URL(url);
@@ -83,12 +68,6 @@ public class PdfGenerator {
         }
     }
 
-    /**
-     * Extrai o conteúdo textual do corpo de uma URL usando Jsoup.
-     *
-     * @param url URL da página.
-     * @return Conteúdo textual da página.
-     */
     private static String extractContentFromUrl(String url) {
         try {
             org.jsoup.nodes.Document doc = Jsoup.connect(url)
@@ -102,14 +81,6 @@ public class PdfGenerator {
         }
     }
 
-    /**
-     * Adiciona uma seção formatada ao PDF.
-     *
-     * @param document Documento PDF.
-     * @param title    Título da seção.
-     * @param content  Conteúdo da seção.
-     * @throws Exception Em caso de erro ao adicionar o conteúdo.
-     */
     private static void addFormattedSection(Document document, String title, String content) throws Exception {
         Paragraph titleParagraph = new Paragraph(title);
         titleParagraph.setAlignment(Element.ALIGN_LEFT);
