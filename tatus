@@ -1,0 +1,35 @@
+[33mcommit 45cbc68bb7043941c7ca00e6f839eef00949d6f4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31mheroku/master[m[33m)[m
+Author: Pedro Igor <peuigor09@gmail.com>
+Date:   Fri Dec 6 12:59:11 2024 -0300
+
+    Atualizar e otimizar aplicação
+
+[33mcommit 9fa55dc46d8f9d296ab62ea5d763ca80152bacfe[m
+Author: Pedro Igor <peuigor09@gmail.com>
+Date:   Fri Dec 6 11:54:05 2024 -0300
+
+    Atualizar GoogleSearchController para processamento assíncrono
+
+[33mcommit 5f4d975316d7f17317d60f8aa6fbe2f812deba19[m
+Author: Pedro Igor <peuigor09@gmail.com>
+Date:   Sat Nov 30 17:50:19 2024 -0300
+
+    Adicionar rota inicial
+
+[33mcommit c4f925c3607d0d2f1be828764ab54f973084772c[m
+Author: Pedro Igor <peuigor09@gmail.com>
+Date:   Sat Nov 30 17:44:24 2024 -0300
+
+    Configurar aplicação para usar a porta definida pelo Hero
+
+[33mcommit 3e6033e7745adfaeba014c04244c427d73c2df26[m
+Author: Pedro Igor <peuigor09@gmail.com>
+Date:   Sat Nov 30 17:39:17 2024 -0300
+
+    Configurar aplicação para usar a porta definida pelo Heroku
+
+[33mcommit 6164d65d54f2f321f94fba88cbea1f499219f37f[m
+Author: Pedro Igor <peuigor09@gmail.com>
+Date:   Sat Nov 30 17:26:39 2024 -0300
+
+    Initial commit
