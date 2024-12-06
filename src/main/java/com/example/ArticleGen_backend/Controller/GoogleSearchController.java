@@ -22,6 +22,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -95,8 +97,8 @@ public class GoogleSearchController {
 
         try {
             List<String> articles = googleSearchService.searchArticles(subject, theme);
-            List<String> articleContents = articles.stream()
-                    .map(articleLink -> {
+            List<CompletableFuture<List<String>>> futureContents = articles.stream()
+                    .map(articleLink -> CompletableFuture.supplyAsync(() -> {
                         logger.info("Verificando URL: {}", articleLink);
                         String validUrl = contentExtractor.extractValidUrl(articleLink);
                         if (validUrl != null && isValidUrl(validUrl)) {
@@ -109,10 +111,16 @@ public class GoogleSearchController {
                             logger.warn("URL inválida ignorada: {}", articleLink);
                         }
                         return new ArrayList<String>();
-                    })
-                    .flatMap(List::stream)
-                    .distinct()
-                    .collect(Collectors.toList());
+                    })).collect(Collectors.toList());
+
+            List<String> articleContents = new ArrayList<>();
+            for (CompletableFuture<List<String>> future : futureContents) {
+                try {
+                    articleContents.addAll(future.get());
+                } catch (InterruptedException | ExecutionException e) {
+                    logger.error("Erro ao processar conteúdo da URL.", e);
+                }
+            }
 
             if (articleContents.isEmpty()) {
                 articleContents.add("Nenhum conteúdo relevante foi encontrado com os parâmetros fornecidos.");
