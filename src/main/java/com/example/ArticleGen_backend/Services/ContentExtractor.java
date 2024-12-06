@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -34,6 +36,12 @@ public class ContentExtractor {
         if (validUrl == null || validUrl.isEmpty()) {
             logger.warn("URL inválida ou malformada: {}", url);
             throw new IllegalArgumentException("A URL fornecida é inválida ou malformada.");
+        }
+
+        String mimeType = getMimeType(validUrl);
+        if (!mimeType.startsWith("text/") && !mimeType.startsWith("application/xml") && !mimeType.startsWith("application/")) {
+            logger.warn("Tipo MIME não suportado na URL: {}", validUrl);
+            throw new UnsupportedMimeTypeException("Unhandled content type. Must be text/*, application/xml, or application/*+xml", mimeType, validUrl);
         }
 
         try {
@@ -73,6 +81,13 @@ public class ContentExtractor {
             logger.error("Erro ao conectar à URL: {}", validUrl, e);
             throw new IOException("Erro ao acessar a URL: " + validUrl, e);
         }
+    }
+
+    private String getMimeType(String url) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.setRequestMethod("HEAD");
+        connection.connect();
+        return connection.getContentType();
     }
 
     private String removeHtmlTags(Element element) {
